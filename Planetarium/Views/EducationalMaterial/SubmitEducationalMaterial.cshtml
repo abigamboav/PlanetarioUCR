@@ -1,0 +1,114 @@
+﻿@model Planetarium.Models.EducationalActivityModel
+@{
+    ViewBag.Title = "Agregar material educacional";
+    List<SelectListItem> educationalDropDownNamesList = ViewBag.DropDownActivitiesNames;
+}
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @if (Convert.ToBoolean(TempData["Error"]) == true)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <strong>¡Oh no!</strong> @TempData["WarningMessage"]
+        </div>
+    }
+
+    <div class="container">
+        <h1>Formulario para agregar material educativo</h1>
+        @using (Html.BeginForm("SendEducationalMaterialForm", "EducationalMaterial", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-success text-center">NUEVO MATERIAL EDUCATIVO</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="col">
+                            @Html.LabelFor(model => model.Title)
+                            @Html.DropDownListFor(model => model.Title, educationalDropDownNamesList, "- Sin selección -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row" style="margin-top: 15px;">
+                            <div>
+                                <h5>Arrastre los archivos</h5>
+                                <div id="dropArea">
+                                    <h3 style="color: black;">Arrastre los archivos acá</h3>
+                                </div>
+                                <h6> Archivos subidos: </h6>
+                                <ul class="list-group" id="uploadList">
+                                </ul>
+                            </div>
+                            <input type="text" id="filesString" name="filesString" style="display:none;" />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-success w-25" style="padding: 5px 55px 5px 55px; margin: 20px" value="Guardar" />
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    </body>
+</html>
+<style>
+    #dropArea {
+        background: #77bafa;
+        border: black dashed 1px;
+        height: 150px;
+        text-align: center;
+        color: #fff;
+        padding-top: 12px;
+    }
+
+    .active-drop {
+        background: white !important;
+        border: solid 2px blue !important;
+        opacity: .5;
+        color: black !important;
+    }
+</style>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"> </script>
+    <script src="~/Scripts/jquery.filedrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dropArea').filedrop({
+                url: '@Url.Action("UploadFiles")',
+                allowedfiletypes: [],
+                allowedfileextensions: [],
+                paramname: 'files',
+                maxfiles: 5,
+                maxfilesize: 1000, // in MB
+                dragOver: function () {
+                    $('#dropArea').addClass('active-drop');
+                },
+                dragLeave: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                drop: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                afterAll: function (e) {
+                    $('#dropArea').html('File(s) uploaded successfully');
+                },
+                uploadFinished: function (i, file, response, time) {
+                    $('#uploadList').append('<li class="list-group-item">' + file.name + '</li>')
+                    document.querySelector("#filesString").value += String(file.name) + "|";
+                }
+            })
+        })
+    </script>
+}
+
+

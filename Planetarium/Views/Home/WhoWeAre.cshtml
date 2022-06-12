@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>¿Quiénes somos?</title>
+</head>
+<body>
+    <div class="container" >
+        <h1 class="text-md-left" style="margin: 5px;">Planetario de San José UCR</h1>
+
+        <div class="card" style="margin-top: 15px;">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="~/images/PlanetariumUCR/planetarioUCR.jpg" class="img-fluid rounded-start" style="max-height: 450px;">
+                </div>
+                <div class="col-md-6 flex-column">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Misión</strong></h5>
+                                <p class="card-text">@ViewBag.MissionMessage</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Visión</strong></h5>
+                                <p class="card-text">@ViewBag.VisionMessage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
