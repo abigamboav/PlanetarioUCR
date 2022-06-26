@@ -6,10 +6,7 @@ async function main() {
 function matchAllTitles(activities, text) {
     var matching = new Boolean(false);
     for (var activity in activities) {
-        matching = match(activities[activity].Title, text)
-            || match(activities[activity].Category, text)
-            || match(activities[activity].ComplexityLevel, text)
-            || matchList(activities[activity].TargetAudience, text);
+        matching = match(activities[activity].Title, text);
         if (text == "")
             show(activities[activity].Title)
         else if (matching)

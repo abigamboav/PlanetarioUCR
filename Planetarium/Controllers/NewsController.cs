@@ -27,10 +27,19 @@ namespace Planetarium.Controllers
             ViewBag.News = dataAccess.GetAllNews();
             ViewBag.News.Clear();
             RssFeedHandler rssHandler = new RssFeedHandler();
-            List<EventModel> feed = rssHandler.GetRssFeed("https://www.nasa.gov/rss/dyn/solar_system.rss");
 
 
-            ViewBag.NewsFromInternet = feed;
+            List<string> sources = new List<string>();
+            sources.Add("https://www.nasa.gov/rss/dyn/educationnews.rss");
+            sources.Add("https://www.nasa.gov/rss/dyn/hurricaneupdate.rss");
+            sources.Add("https://www.nasa.gov/rss/dyn/solar_system.rss");
+
+            List<List<EventModel>> feeds = new List<List<EventModel>>();
+            feeds.Add(rssHandler.GetRssFeed(sources[0]));
+            feeds.Add(rssHandler.GetRssFeed(sources[1]));
+            feeds.Add(rssHandler.GetRssFeed(sources[2]));
+
+            ViewBag.NewsFromInternet = feeds;
             return View();
         }
 
