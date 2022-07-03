@@ -33,6 +33,10 @@ namespace Planetarium.Controllers
             sources.Add("https://www.nasa.gov/rss/dyn/educationnews.rss");
             sources.Add("https://www.nasa.gov/rss/dyn/hurricaneupdate.rss");
             sources.Add("https://www.nasa.gov/rss/dyn/solar_system.rss");
+            List<string> newsFromInternetHeaders = new List<string>();
+            newsFromInternetHeaders.Add("Noticias Educativas");
+            newsFromInternetHeaders.Add("Noticias del Mundo");
+            newsFromInternetHeaders.Add("Noticias del Espacio");
 
             List<List<EventModel>> feeds = new List<List<EventModel>>();
             feeds.Add(rssHandler.GetRssFeed(sources[0]));
@@ -40,6 +44,7 @@ namespace Planetarium.Controllers
             feeds.Add(rssHandler.GetRssFeed(sources[2]));
 
             ViewBag.NewsFromInternet = feeds;
+            ViewBag.NewsFromInternetHeaders = newsFromInternetHeaders;
             return View();
         }
 
