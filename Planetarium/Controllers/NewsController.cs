@@ -20,6 +20,10 @@ namespace Planetarium.Controllers
             DataAccess = new NewsHandler();
             ContentParser = new ContentParser();
         }
+        public ActionResult ViewSucceed()
+        {
+            return View("View Succeed");
+        }
 
         public ActionResult ListNews()
         {
