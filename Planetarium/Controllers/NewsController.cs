@@ -6,6 +6,7 @@ using Planetarium.Handlers;
 using Planetarium.Models;
 using System.IO;
 using System.Xml;
+using Rotativa;
 
 namespace Planetarium.Controllers
 {
@@ -42,6 +43,17 @@ namespace Planetarium.Controllers
             ViewBag.NewsFromInternet = feeds;
             return View();
         }
+
+        public ActionResult PrintPDF() {
+            RssFeedHandler rssHandler = new RssFeedHandler();
+            List<EventModel> data = rssHandler.GetRssFeed("https://www.nasa.gov/rss/dyn/educationnews.rss");
+            return new PartialViewAsPdf("_JobPrint", data)
+            {
+                FileName = "Test.pdf"
+            };
+
+        }
+
 
         [HttpGet]
         public ActionResult News(string title)

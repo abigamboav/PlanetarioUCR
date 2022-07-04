@@ -115,3 +115,4 @@ C:\Users\estudiante\Desktop\Planetario\PlanetarioUCR\Planetarium\bin\roslyn\VBCS
 C:\Users\estudiante\Desktop\Planetario\PlanetarioUCR\Planetarium\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\estudiante\Desktop\Planetario\PlanetarioUCR\Planetarium\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\estudiante\Desktop\Planetario\PlanetarioUCR\Planetarium\obj\Debug\Planetarium.csproj.CopyComplete
+C:\Users\estudiante\Desktop\Planetario\PlanetarioUCR\Planetarium\bin\Rotativa.dll
