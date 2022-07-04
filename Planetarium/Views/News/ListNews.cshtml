@@ -53,77 +53,36 @@
     </div>
 
     <div>
-        <div class="card">
-            <div class="card-header"> <h3>Noticias Feed 0 --Modificar Titulo</h3></div>
-            <div class="row d-flex">
-                @foreach (var element in ViewBag.NewsFromInternet[0])
-                {
-                    <div class="col-4 d-flex">
-                        <div class="card rounded-3 bg-light" style="margin: 15px;">
-                            <div class="card-header"><strong>@element.Title</strong></div>
-                            <div class="card-body">
-                                <p>
-                                    <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
-                                    @element.Description <br />
-                                    @element.Date
-                                </p>
-                                <div class="align-self-end align-self-right">
-                                    <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+        @for(int news = 0; news < ViewBag.NewsFromInternet.Count; news++){
+            <div class="card">
+                <div class="card-header"> <h3>@ViewBag.NewsFromInternetHeaders[news]</h3></div>
+                <div class="row d-flex">
+                    @foreach (var element in ViewBag.NewsFromInternet[news])
+                    {
+                        <div class="col-4 d-flex">
+                            <div class="card rounded-3 bg-light" style="margin: 15px;">
+                                <div class="card-header">
+                                    <p class="fw-light text-muted" style="margin-bottom: 0rem;">@element.Date</p>
+                                    <strong>@element.Title</strong>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+                                <div class="card-body">
+                                    <div style="text-align:center; margin-bottom:5px">
+                                        <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
+                                    </div>
+                                    <p style="text-align: justify;">
+                                        @element.Description
+                                        <br />
+                                    </p>
 
-        <div class="card">
-            <div class="card-header"> <h3>Noticias Feed 1 --Modificar Titulo</h3></div>
-            <div class="row d-flex">
-                @foreach (var element in ViewBag.NewsFromInternet[1])
-                {
-                    <div class="col-4 d-flex">
-                        <div class="card rounded-3 bg-light" style="margin: 15px;">
-                            <div class="card-header"><strong>@element.Title</strong></div>
-                            <div class="card-body">
-                                <p>
-                                    <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
-                                    @element.Description <br />
-                                    @element.Date
-                                </p>
-                                <div class="align-self-end align-self-right">
-                                    <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                    <div class="align-self-end align-self-right">
+                                        <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header"> <h3>Noticias Feed 2 --Modificar Titulo</h3></div>
-            <div class="row d-flex">
-                @foreach (var element in ViewBag.NewsFromInternet[2])
-                {
-                    <div class="col-4 d-flex">
-                        <div class="card rounded-3 bg-light" style="margin: 15px;">
-                            <div class="card-header"><strong>@element.Title</strong></div>
-                            <div class="card-body">
-                                <p>
-                                    <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
-                                    @element.Description <br />
-                                    @element.Date
-                                </p>
-                                <div class="align-self-end align-self-right">
-                                    <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+        }
     </div>
-
 </div>
