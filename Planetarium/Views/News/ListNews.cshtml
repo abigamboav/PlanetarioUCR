@@ -12,6 +12,7 @@
 }
 
 <div class="container">
+
     @if (rolCookie >= 5)
     {
         <hr />
@@ -23,34 +24,15 @@
     <hr />
     <h1 style="margin:10px 0 20px 0;">Noticias y Anuncios del Planetario</h1>
     @Html.ActionLink("PDF", "/PrintPDF", new { @class = "btn btn-info" })
-    <div class="row d-flex">
-        @foreach (var news in @ViewBag.News)
-        {
-            <div class="col-4 d-flex">
-                <div class="card rounded-3 bg-light" style="margin: 15px 0 15px 0;">
-                    <div class="card-body d-flex flex-column">
-                        <h2 class="text-start">@news.Title </h2>
-                        <br />
-                        <h9>@news.Date</h9>
-                        <span>
-                            <h5>Categoría: <a class="badge rounded-pill bg-success"> @news.Category</a></h5>
-                            <h5>
-                                Tópicos:
-                                @foreach (var topic in @news.Topics)
-                                {
-                                    <a class="badge rounded-pill bg-info"> @topic</a>
-                                }
-                            </h5>
-                        </span>
-                        <p class="card-text" style="margin-top: 15px;">
-                            @news.Description
-                        </p>
-                        @Html.ActionLink("Seguir leyendo", "News", new { title = news.Title }, new { @class = "align-self-end align-self-right btn btn-primary", @style = "margin-top: auto; " })
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+
+<form method="post">
+    <input type="text" id="palabraClave" name="palabraClave">
+    <button onclick="filter()">Submit</button> <br />
+    <span id="result">
+    </span>
+</form>
+
+ 
 
     <div>
         <select class="form-select" onchange="filtrarPorFuente(this)" style="width: 25%; margin-bottom:15px;" aria-label="Categoría por defecto">
@@ -59,14 +41,25 @@
             <option value="fuente-1">Noticias del Mundo</option>
             <option value="fuente-2">Noticias del Espacio</option>
         </select>
+
         @for (int news = 0; news < ViewBag.NewsFromInternet.Count; news++)
         {
+            string clave = "";
             string id_aux = "fuente-" + news;
+
             <div id=@id_aux class="card">
                 <div class="card-header"> <h3>@ViewBag.NewsFromInternetHeaders[news]</h3></div>
                 <div class="row d-flex">
-                    @foreach (var element in ViewBag.NewsFromInternet[news])
+                    @if (IsPost)
                     {
+                        clave = Request.Form["palabraClave"];
+                    }
+ 
+                    @foreach (var element in ViewBag.NewsFromInternet[news])
+                    {   
+                                        
+                        if (element.Title.ToLower().Contains(clave.ToLower()))
+                        {
                         <div class="col-4 d-flex">
                             <div class="card rounded-3 bg-light" style="margin: 15px;">
                                 <div class="card-header">
@@ -88,6 +81,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     }
                 </div>
             </div>
