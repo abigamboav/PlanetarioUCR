@@ -53,8 +53,16 @@
     </div>
 
     <div>
-        @for(int news = 0; news < ViewBag.NewsFromInternet.Count; news++){
-            <div class="card">
+        <select class="form-select" onchange="filtrarPorFuente(this)" style="width: 25%; margin-bottom:15px;" aria-label="Categoría por defecto">
+            <option value="default" valueselected>Seleccionar fuente de noticias</option>
+            <option value="fuente-0">Noticias Educativas</option>
+            <option value="fuente-1">Noticias del Mundo</option>
+            <option value="fuente-2">Noticias del Espacio</option>
+        </select>
+        @for (int news = 0; news < ViewBag.NewsFromInternet.Count; news++)
+        {
+            string id_aux = "fuente-" + news;
+            <div id=@id_aux class="card">
                 <div class="card-header"> <h3>@ViewBag.NewsFromInternetHeaders[news]</h3></div>
                 <div class="row d-flex">
                     @foreach (var element in ViewBag.NewsFromInternet[news])
@@ -86,3 +94,5 @@
         }
     </div>
 </div>
+
+<script type="text/javascript" src="~/Scripts/filtrosNoticias.js"></script>

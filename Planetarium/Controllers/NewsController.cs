@@ -62,7 +62,7 @@ namespace Planetarium.Controllers
             };
 
         }
-
+         
 
         [HttpGet]
         public ActionResult News(string title)

@@ -361,6 +361,7 @@
     <Content Include="Scripts\categoriesAndTopicsMultiselectCascade.js" />
     <Content Include="Scripts\categoriesAndTopics.js" />
     <Content Include="Scripts\filterFuture.js" />
+    <Content Include="Scripts\filtrosNoticias.js" />
     <Content Include="Scripts\HangManScript.js" />
     <Content Include="Scripts\homeDelivery.js" />
     <Content Include="Scripts\idiomsStatistics.js" />
