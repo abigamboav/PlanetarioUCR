@@ -25,62 +25,68 @@
     <h1 style="margin:10px 0 20px 0;">Noticias y Anuncios del Planetario</h1>
     @Html.ActionLink("PDF", "/PrintPDF", new { @class = "btn btn-info" })
 
-<form method="post">
-    <input type="text" id="palabraClave" name="palabraClave">
-    <button onclick="filter()">Submit</button> <br />
-    <span id="result">
-    </span>
-</form>
 
- 
-
-    <div>
+    <div style="display:block">
         <select class="form-select" onchange="filtrarPorFuente(this)" style="width: 25%; margin-bottom:15px;" aria-label="Categoría por defecto">
             <option value="default" valueselected>Seleccionar fuente de noticias</option>
             <option value="fuente-0">Noticias Educativas</option>
             <option value="fuente-1">Noticias del Mundo</option>
             <option value="fuente-2">Noticias del Espacio</option>
         </select>
+    </div>
+    <div style="margin-bottom: 30px">
+        <form method="post" style="width: 25%; margin-right:0px">
+            <div class="form-group">
+                <label for="palabraClave">Busca una noticia por su título</label>
+                <input type="text" id="palabraClave" name="palabraClave" placeholder="Palabra clave" class="form-control">
+                <button class="btn btn-primary mt-2" onclick="filter()">Submit</button> <br/>
+                <span id="result">
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div>
 
         @for (int news = 0; news < ViewBag.NewsFromInternet.Count; news++)
         {
             string clave = "";
             string id_aux = "fuente-" + news;
 
-            <div id=@id_aux class="card">
+            <div id=@id_aux class="card" style="margin-bottom: 30px">
                 <div class="card-header"> <h3>@ViewBag.NewsFromInternetHeaders[news]</h3></div>
                 <div class="row d-flex">
                     @if (IsPost)
                     {
                         clave = Request.Form["palabraClave"];
                     }
- 
+
                     @foreach (var element in ViewBag.NewsFromInternet[news])
-                    {   
-                                        
+                    {
+
                         if (element.Title.ToLower().Contains(clave.ToLower()))
                         {
-                        <div class="col-4 d-flex">
-                            <div class="card rounded-3 bg-light" style="margin: 15px;">
-                                <div class="card-header">
-                                    <p class="fw-light text-muted" style="margin-bottom: 0rem;">@element.Date</p>
-                                    <strong>@element.Title</strong>
-                                </div>
-                                <div class="card-body">
-                                    <div style="text-align:center; margin-bottom:5px">
-                                        <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
+                            <div class="col-4 d-flex">
+                                <div class="card rounded-3 bg-light" style="margin: 15px;">
+                                    <div class="card-header">
+                                        <p class="fw-light text-muted" style="margin-bottom: 0rem;">@element.Date</p>
+                                        <strong>@element.Title</strong>
                                     </div>
-                                    <p style="text-align: justify;">
-                                        @element.Description
-                                        <br />
-                                    </p>
+                                    <div class="card-body">
+                                        <div style="text-align:center; margin-bottom:5px">
+                                            <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
+                                        </div>
+                                        <p style="text-align: justify;">
+                                            @element.Description
+                                            <br />
+                                        </p>
 
-                                    <div class="align-self-end align-self-right">
-                                        <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                        <div class="align-self-end align-self-right">
+                                            <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     }
                 </div>
