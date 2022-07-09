@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.XPath;
 using HtmlAgilityPack;
 using Planetarium.Models;
 
-namespace Planetarium.Handlers {
-    public class RssFeedHandler : DatabaseHandler {
+namespace Planetarium.Handlers
+{
+    public class RssFeedHandler : DatabaseHandler
+    {
 
         static Dictionary<string, int> MONTH = new Dictionary<string, int> {
             {"Jan", 1},
@@ -41,25 +44,32 @@ namespace Planetarium.Handlers {
         };
 
 
-        public List<EventModel> GetRssFeed(string url = "defaultURL") {
+        public List<EventModel> GetRssFeed(string url = "https://www.space.com/feeds/all")
+        {
             List<EventModel> feed = new List<EventModel>();
-            try {
-                XPathDocument doc = new XPathDocument("https://www.space.com/feeds/all");
+            try
+            {
+                XPathDocument doc = new XPathDocument(url);
                 XPathNavigator navigator = doc.CreateNavigator();
                 XPathNodeIterator nodes = navigator.Select("//item");
-                while (nodes.MoveNext()) {
+                while (nodes.MoveNext())
+                {
                     XPathNavigator node = nodes.Current;
                     feed.Add(InstanceEventModel(node));
                 }
-            }catch {
+            }
+            catch
+            {
                 feed = null;
                 Console.WriteLine("No se pudo obtener datos RSS");
             }
             return feed;
         }
 
-        private EventModel InstanceEventModel(XPathNavigator node) {
-            return new EventModel {
+        private EventModel InstanceEventModel(XPathNavigator node)
+        {
+            return new EventModel
+            {
                 Title = node.SelectSingleNode("title").Value,
                 Description = node.SelectSingleNode("description").Value,
                 Link = node.SelectSingleNode("link").Value,
@@ -68,26 +78,33 @@ namespace Planetarium.Handlers {
             };
         }
 
-        public List<EventModel> GetEventsFromFeed(string url = "https://www.timeanddate.com/astronomy/sights-to-see.html") {
+
+        public List<EventModel> GetEventsFromFeed(string url = "https://www.timeanddate.com/astronomy/sights-to-see.html")
+        {
             List<EventModel> events = new List<EventModel>();
             var webPage = new HtmlWeb();
             var DOM = webPage.Load(url);
-            foreach (HtmlNode node in DOM.DocumentNode.SelectNodes("//article")) {
+            foreach (HtmlNode node in DOM.DocumentNode.SelectNodes("//article"))
+            {
                 string innerText = node.ChildNodes[0].InnerText;
-                if (innerText.Contains(':')) {
+                if (innerText.Contains(':'))
+                {
                     AddEvent(events, innerText, node);
                 }
             }
             return events;
         }
 
-        private void AddEvent(List<EventModel> events, string innerText, HtmlNode node) {
+        private void AddEvent(List<EventModel> events, string innerText, HtmlNode node)
+        {
             string date = FormatDate(innerText.Split(':')[0]);
             string title = innerText.Split(':')[1];
             string description = node.ChildNodes[2].InnerText;
             string link = "https://www.timeanddate.com/" + node.ChildNodes[0].ChildNodes[1].GetAttributeValue("href", string.Empty);
-            if (!date.Contains("-")) {
-                events.Add(new EventModel {
+            if (!date.Contains("-"))
+            {
+                events.Add(new EventModel
+                {
                     Title = title,
                     Description = description,
                     Date = date.Replace("/", "-"),
@@ -98,7 +115,8 @@ namespace Planetarium.Handlers {
             }
         }
 
-        public string FormatDate(string date) {
+        public string FormatDate(string date)
+        {
             string formatedDate = "";
             int currentMonth = Convert.ToInt32(DateTime.Now.ToString("MM"));
             int currentYear = Convert.ToInt32(DateTime.Now.Year.ToString());
@@ -106,26 +124,41 @@ namespace Planetarium.Handlers {
             string day = date.Split(' ')[1];
             int dayToInt;
 
-            if (day.Contains('/')) {
+            if (day.Contains('/'))
+            {
                 dayToInt = Convert.ToInt32(day.Split('/')[1]);
-            } else {
+            }
+            else
+            {
                 dayToInt = Convert.ToInt32(day);
             }
 
-            if(dayToInt < 10) {
+            if (dayToInt < 10)
+            {
                 day = DAYS[dayToInt];
-            } else {
+            }
+            else
+            {
                 day = dayToInt.ToString();
             }
 
-            if (month >= currentMonth) {
+            if (month >= currentMonth)
+            {
                 formatedDate = currentYear + "/" + month + "/" + day.Replace("/", "-");
             }
-            else {
+            else
+            {
                 formatedDate = (currentYear + 1) + "/" + month + "/" + day.Replace("/", "-");
             }
-            
+
             return formatedDate;
-        } 
+        }
+
+
+        public void ModifiedRssFeedReader(string url = "")
+        {
+
+           
+        }
     }
 }

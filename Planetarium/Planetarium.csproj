@@ -70,6 +70,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -316,6 +319,7 @@
     <Content Include="Data_Files\Coupons.json" />
     <Content Include="Data_Files\MemoryGame.json" />
     <Content Include="Data_Files\CelestialBodies.json" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="images\news\anillosDeEinstein.jpg" />
     <Content Include="images\news\eclipse.jpg" />
@@ -344,6 +348,10 @@
     <Content Include="Libs\fullCalendar-5.0.1\GeneralCalendar.js" />
     <Content Include="Libs\fullCalendar-5.0.1\main.css" />
     <Content Include="Libs\fullCalendar-5.0.1\main.js" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\Authorization.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -353,6 +361,7 @@
     <Content Include="Scripts\categoriesAndTopicsMultiselectCascade.js" />
     <Content Include="Scripts\categoriesAndTopics.js" />
     <Content Include="Scripts\filterFuture.js" />
+    <Content Include="Scripts\filtrosNoticias.js" />
     <Content Include="Scripts\HangManScript.js" />
     <Content Include="Scripts\homeDelivery.js" />
     <Content Include="Scripts\idiomsStatistics.js" />
