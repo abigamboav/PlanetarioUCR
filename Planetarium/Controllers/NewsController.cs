@@ -62,7 +62,82 @@ namespace Planetarium.Controllers
             };
 
         }
-         
+
+
+        public ActionResult PrintNewsId(string title = "") {
+
+            ActionResult view;
+            try
+            {
+                NewsHandler dataAccess = new NewsHandler();
+                RssFeedHandler dataHandler = new RssFeedHandler();
+                List<string> sources = new List<string>();
+                sources.Add("https://www.nasa.gov/rss/dyn/educationnews.rss");
+                sources.Add("https://www.nasa.gov/rss/dyn/hurricaneupdate.rss");
+                sources.Add("https://www.nasa.gov/rss/dyn/solar_system.rss");
+                List<string> newsFromInternetHeaders = new List<string>();
+                newsFromInternetHeaders.Add("Noticias Educativas");
+                newsFromInternetHeaders.Add("Noticias del Mundo");
+                newsFromInternetHeaders.Add("Noticias del Espacio");
+
+                List<EventModel> feeds = new List<EventModel>();
+
+                for (int i = 0; i < sources.Count; i++) {
+
+                    feeds.AddRange(dataHandler.GetRssFeed(sources[i]));
+
+                }
+
+                EventModel news = feeds.Find(smodel => String.Equals(smodel.Title, title));
+                if (news == null)
+                {
+                    view = RedirectToAction("ListNews");
+                }
+                else
+                {
+                    ViewBag.SelectedNews = news;
+                    view = View(ViewBag);
+
+                }
+            }
+            catch
+            {
+                view = RedirectToAction("ListNews");
+            }
+            return view;
+
+        }
+
+        public ActionResult PrintAction(string title)
+        {
+            NewsHandler dataAccess = new NewsHandler();
+            RssFeedHandler dataHandler = new RssFeedHandler();
+            List<string> sources = new List<string>();
+            sources.Add("https://www.nasa.gov/rss/dyn/educationnews.rss");
+            sources.Add("https://www.nasa.gov/rss/dyn/hurricaneupdate.rss");
+            sources.Add("https://www.nasa.gov/rss/dyn/solar_system.rss");
+            List<string> newsFromInternetHeaders = new List<string>();
+            newsFromInternetHeaders.Add("Noticias Educativas");
+            newsFromInternetHeaders.Add("Noticias del Mundo");
+            newsFromInternetHeaders.Add("Noticias del Espacio");
+
+            List<EventModel> feeds = new List<EventModel>();
+
+            for (int i = 0; i < sources.Count; i++)
+            {
+
+                feeds.AddRange(dataHandler.GetRssFeed(sources[i]));
+
+            }
+
+            EventModel news = feeds.Find(smodel => String.Equals(smodel.Title, title));
+
+            ViewBag.SelectedNews = news;
+            return new Rotativa.ViewAsPdf("PrintNewsId");
+
+
+        }
+
 
         [HttpGet]
         public ActionResult News(string title)

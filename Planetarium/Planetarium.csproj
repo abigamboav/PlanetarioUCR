@@ -459,6 +459,7 @@
     <Content Include="Views\RateUs\RateResults.cshtml" />
     <Content Include="Views\Streaming\ActivityStreaming.cshtml" />
     <Content Include="Views\Games\HangManGame.cshtml" />
+    <Content Include="Views\News\PrintNewsId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

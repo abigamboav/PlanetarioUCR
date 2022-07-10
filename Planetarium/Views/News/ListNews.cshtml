@@ -83,6 +83,7 @@
 
                                         <div class="align-self-end align-self-right">
                                             <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                            @Html.ActionLink("Descargar", "PrintAction", new { title = element.Title }, new { @class = "align-self-end align-self-right btn btn-primary", @style = "margin-top: auto; " })
                                         </div>
                                     </div>
                                 </div>

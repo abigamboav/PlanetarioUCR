@@ -1,0 +1,29 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Noticia</title>
+</head>
+
+<body>
+    <div class="container" style="padding: 30px 0 30px 0">
+        <div class="card col-6 text-center m-auto">
+            <div class="card-header">
+                <img src="@ViewBag.SelectedNews.ImgURL" alt="Alternate Text"  class="img-fluid"/>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <h2>@ViewBag.SelectedNews.Title</h2>
+                </p>
+                <hr />
+                <p class="card-text"> @ViewBag.SelectedNews.Date </p>
+                <p class="card-text" style="font-size: 22px">Resumen: @ViewBag.SelectedNews.Description </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
