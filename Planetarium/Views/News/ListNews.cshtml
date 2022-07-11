@@ -34,16 +34,11 @@
             <option value="fuente-2">Noticias del Espacio</option>
         </select>
     </div>
-    <div style="margin-bottom: 30px">
-        <form method="post" style="width: 25%; margin-right:0px">
-            <div class="form-group">
-                <label for="palabraClave">Busca una noticia por su título</label>
-                <input type="text" id="palabraClave" name="palabraClave" placeholder="Palabra clave" class="form-control">
-                <button class="btn btn-primary mt-2" onclick="filter()">Submit</button> <br/>
-                <span id="result">
-                </span>
-            </div>
-        </form>
+    
+    <div class="form-group has-feedback">
+        <label class="control-label"> <i class="fas fa-search"></i>Buscador</label>
+        <input type="text" id="search" class="form-control" placeholder="Buscar noticia por palabra clave" autocomplete="off" />
+        <br />
     </div>
 
     <div>
@@ -53,7 +48,7 @@
             string clave = "";
             string id_aux = "fuente-" + news;
 
-            <div id=@id_aux class="card" style="margin-bottom: 30px">
+            <div id=@id_aux  class="card" style="margin-bottom: 30px">
                 <div class="card-header"> <h3>@ViewBag.NewsFromInternetHeaders[news]</h3></div>
                 <div class="row d-flex">
                     @if (IsPost)
@@ -66,24 +61,26 @@
 
                         if (element.Title.ToLower().Contains(clave.ToLower()))
                         {
-                            <div class="col-4 d-flex">
-                                <div class="card rounded-3 bg-light" style="margin: 15px;">
-                                    <div class="card-header">
-                                        <p class="fw-light text-muted" style="margin-bottom: 0rem;">@element.Date</p>
-                                        <strong>@element.Title</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <div style="text-align:center; margin-bottom:5px">
-                                            <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
+                            <div id="@element.Title" class="col-4  justify-content-evenly" style="display:flex;">
+                                <div id="@element.Title" class="card rounded-3 bg-light" style="margin: 15px; display:flex;">
+                                    <div class="card-body d-flex flex-column">
+                                        <div class="card-header">
+                                            <p class="fw-light text-muted" style="margin-bottom: 0rem;">@element.Date</p>
+                                            <strong>@element.Title</strong>
                                         </div>
-                                        <p style="text-align: justify;">
-                                            @element.Description
-                                            <br />
-                                        </p>
+                                        <div class="card-body">
+                                            <div style="text-align:center; margin-bottom:5px">
+                                                <img src="@element.ImgURL" alt="Alternate Text" class="img-fluid" />
+                                            </div>
+                                            <p style="text-align: justify;">
+                                                @element.Description
+                                                <br />
+                                            </p>
 
-                                        <div class="align-self-end align-self-right">
-                                            <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
-                                            @Html.ActionLink("Descargar", "PrintAction", new { title = element.Title }, new { @class = "align-self-end align-self-right btn btn-primary", @style = "margin-top: auto; " })
+                                            <div class="align-self-end align-self-right">
+                                                <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                                @Html.ActionLink("Descargar", "PrintAction", new { title = element.Title }, new { @class = "align-self-end align-self-right btn btn-primary", @style = "margin-top: auto; " })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -96,4 +93,12 @@
     </div>
 </div>
 
-<script type="text/javascript" src="~/Scripts/filtrosNoticias.js"></script>
+<script>
+    function search() {
+        let text = document.getElementById("search").value;
+        var news = @Html.Raw(Json.Encode(ViewBag.NewsFromInternet));
+        matchAllTitles(news, text);
+    }
+</script>
+
+<script src="~/Scripts/filtrosNoticias.js"></script>
