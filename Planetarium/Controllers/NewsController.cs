@@ -23,14 +23,15 @@ namespace Planetarium.Controllers
         }
         public ActionResult ViewSucceed()
         {
+            ViewBag.Prueba = "Test";
             return View("View Succeed");
         }
 
         public ActionResult ListNews()
         {
             NewsHandler dataAccess = new NewsHandler();
-            ViewBag.News = dataAccess.GetAllNews();
-            ViewBag.News.Clear();
+            //ViewBag.News = dataAccess.GetAllNews();
+            //ViewBag.News.Clear();
             RssFeedHandler rssHandler = new RssFeedHandler();
 
 
