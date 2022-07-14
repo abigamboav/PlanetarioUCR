@@ -23,7 +23,6 @@
     }
     <hr />
     <h1 style="margin:10px 0 20px 0;">Noticias y Anuncios del Planetario</h1>
-    @Html.ActionLink("PDF", "/PrintPDF", new { @class = "btn btn-info" })
 
 
     <div style="display:block">
@@ -78,8 +77,9 @@
                                             </p>
 
                                             <div class="align-self-end align-self-right">
-                                                <a href="@element.Link" class="btn btn-info">Ir a Noticia</a>
+                                                @Html.ActionLink("Ver", "PrintNewsId", new { title = element.Title }, new { @class = "align-self-end align-self-right btn btn-info", @style = "margin-top: auto; " })
                                                 @Html.ActionLink("Descargar", "PrintAction", new { title = element.Title }, new { @class = "align-self-end align-self-right btn btn-primary", @style = "margin-top: auto; " })
+
                                             </div>
                                         </div>
                                     </div>
